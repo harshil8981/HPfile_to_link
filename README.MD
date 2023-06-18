@@ -80,7 +80,7 @@ cd HPfile_to_link
 virtualenv -p /usr/bin/python3 venv
 . ./venv/bin/activate
 pip install -r requirements.txt
-python3 -m harshil
+python3 -m Adarsh
 ```
 
 and to stop the whole bot,
