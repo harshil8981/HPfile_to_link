@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <!--<link rel="icon" href=" Your Fevicol link "> -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+    <title>Watch {{file_name}} - YOUR CHANNEL NAME </title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/plyr/3.7.8/plyr.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+<style>
+    body {
+        font-family: sans-serif;
+        font-size: 16px;
+        margin: 0;
+        padding: 0;
+    }
+
+    #banner {
+        position: relative;
+        height: 55px;
+        color: #ffffff;
+        background-color: #2962ff;
+        box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0 20px;
+    }
+
+    .left-content {
+        flex: 1;
+        text-align: center;
+    }
+
+    .black-text {
+        color: white;
+    }
+
+    .right-content {
+        margin-left: 20px;
+    }
+
+    .button {
+        display: inline-block;
+        padding: 10px 20px;
+        background-color: #ff9b05;
+        color: white;
+        text-decoration: none;
+    }
+
+    .button:hover {
+      box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+    }
+
+
+    #player-container {
+        margin: 1px;
+    }
+
+    .containerbox {
+        overflow: hidden;
+        *zoom: 1;
+        margin: 0 10px;
+    }
+
+    .playercontainerbox {
+        overflow: hidden;
+        *zoom: 1;
+        margin: 0 1px;
+    }
+
+    .site-content {
+        padding: 20px;
+    }
+
+    #text {
+        margin: 20px;
+    }
+
+    #button-container1 {
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap;
+    }
+
+    #button-container1 button {
+        flex: 1 0 auto;
+        height: 40px;
+        padding: 0 20px;
+        margin: 5px;
+        font-size: 16px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        transition: box-shadow 0.3s, background-color 0.3s, color 0.3s;
+    }
+
+    #button-container1 button:hover {
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    }
+
+    #button-container1 button#vlc-btn,
+    #button-container1 button#pi-btn,
+    #button-container1 button#sp-btn,
+    #button-container1 button#mx-btn {
+        background-color: Lavender; 
+        color: #ffffff; 
+    }
+
+    #button-container2 button#dl-btn,
+    #button-container2 button#tgfile-btn,
+    #button-container2 button#tg-btn {
+        background-color: #2D76FF; 
+        color: #ffffff; 
+    }
+
+    #button-container2 {
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    #button-container2 button {
+        height: 40px;
+        padding: 0 20px;
+        margin: 5px;
+        font-size: 16px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        transition: box-shadow 0.3s, background-color 0.3s, color 0.3s;
+    }
+
+    #button-container2 button:hover {
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    }
+
+    .modal {
+        display: none;
+        position: fixed;
+        z-index: 1;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        background-color: rgb(0, 0, 0);
+        background-color: rgba(0, 0, 0, 0.4);
+    }
+    
+    #info-box {
+        border: 1px solid #8A8A8A;
+        border-radius: 10px;
+        padding: 5px;
+        width: auto;
+        text-align: left;
+        margin: 10px;
+        box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+        box-sizing: border-box;
+        word-wrap: break-word;
+    }
+
+    .modal-content {
+        background-color: #fefefe;
+        margin: 15% auto;
+        padding: 20px;
+        border: 1px solid #888;
+        width: 300px;
+        text-align: center;
+    }
+
+    .close {
+        color: #aaa;
+        float: right;
+        font-size: 28px;
+        font-weight: bold;
+        cursor: pointer;
+    }
+
+    #mx-btn {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 40px;
+        padding: 0 20px;
+        margin: 5px;
+        font-size: 16px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        transition: box-shadow 0.3s, background-color 0.3s, color 0.3s;
+        background-color: #f0f0f0; 
+        color: #000000; 
+    }
+
+    #mx-btn svg {
+        width: 20px;
+        height: 20px; 
+        margin-right: 5px; 
+    }
+
+    #vlc-btn:hover,
+    #mx-btn:hover {
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    }
+
+    #dl-btn:hover,
+    #tgfile-btn:hover,
+    #tg-btn:hover {
+        background-color: #E8E8E8;
+    }
+</style>
+</head>
+
+<body>   
+<div id="banner">
+    <div class="left-content">
+        <span class="black-text">Online Streaming</span>
+    </div>
+</div>
+<div style="margin-bottom: 5px; margin-top: 5px"></div>
+<div class="site-content">
+    <!--
+YOUR ADS
+    -->
+    <div class="playercontainerbox"> 
+        <div id="player-container">
+            <video id="player" playsinline controls>
+                <source src={{file_url}} type="video/mp4">
+            </video>
+        </div>
+    </div>
+    <div class="containerbox"> 
+        <div id="info-box">
+           <p style="font-size: 16px; color:#7b89a3;">File Details :</p>
+           <p style="font-size: 13px; color:#7b89a3;">Name : {{file_name}}</p>
+           <p style="font-size: 13px; color:#7b89a3;">Size : {{file_size}}</p>
+           <p style="font-size: 13px; color:#7b89a3;">Shared by : ******* (Privacy Enabled)</p>
+        </div>
+        <div style="margin-bottom: 5px; margin-top: 10px">𝐒𝐭𝐫𝐞𝐚𝐦 𝐎𝐩𝐭𝐢𝐨𝐧𝐬 :</div>
+        <div id="button-container1">
+            <button id="vlc-btn" onclick="playOnline()">
+                <img src="https://i.ibb.co/GtnGhBV/videolan-vlc-logo-icon-170258.png" alt="vlc_logo" width="110px" height="40px"/>
+            </button>
+            <button id="mx-btn" onclick="playOnlineMx()"><img src="https://i.ibb.co/djV3Fn8/mxlogo.png" alt="mx_logo" width="120px">
+            </button>
+        </div>
+        <div style="margin-bottom: 40px; margin-top: 5px">
+        <div id="button-container1">
+            <button id="sp-btn" onclick="playOnlinesp()">
+                <img src="https://i.ibb.co/vZxWgz5/ZKTgV9HV.png" alt="splayer_logo" width="130px">
+            </button>
+            <button id="pi-btn" onclick="playOnlinepi()"><img src="https://i.ibb.co/JsDNHgz/c0C4vnAa.png" alt="playit_logo" width="140px">
+            </button>
+        </div>
+	</div>
+        <div style="margin-bottom: 5px; margin-top: 40px">Download Options :</div>
+        <div id="button-container2">
+            <button id="tgfile-btn" onclick="openModalTG()">
+                <i class="fab fa-telegram"></i> Get as Telegram File
+            </button>
+        </div>
+        <div id="button-container2">
+            <button id="dl-btn" onclick="openModal()">
+                <i class="fas fa-download"></i> Download Now
+            </button>
+        </div>
+        <div id="button-container2">
+            <button class="block" id="tg-btn" onclick="openTgBot()">
+                <i class="fab fa-telegram"></i> Create Link Like This
+            </button>
+            
+            
+        </div>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/plyr/3.7.8/plyr.js"></script>
+        <script>
+            const player = new Plyr('#player', {
+                controls: ['play', 'progress', 'rewind', 'fast-forward', 'current-time', 'fullscreen', 'settings']
+            });
+        </script>
+        </div>    
+        <div>
+<script>
+    const currentUrl = window.location.href;
+    const finalUrl = currentUrl.replace("/watch/", "/");
+
+    function playOnline() {
+        const finalLinkUrl = finalUrl;
+        const vlcUrl = `vlc://${finalLinkUrl}`;
+        window.location.href = vlcUrl;
+    }
+
+    function playOnlineMx() {
+        const finalLinkUrl = finalUrl;
+        const mxUrl = `intent:${finalLinkUrl}#Intent;package=com.mxtech.videoplayer.ad;S.title={{file_name}};end`;
+        window.location.href = mxUrl;
+    }
+    
+    function playOnlinesp() {
+        const finalLinkUrl = finalUrl;
+        const spUrl = `intent:${finalLinkUrl}#Intent;action=com.young.simple.player.playback_online;package=com.young.simple.player;end`;
+        window.location.href = spUrl;
+    }
+    
+    function playOnlinepi() {
+        const finalLinkUrl = finalUrl;
+        const piUrl = `playit://playerv2/video?url=${finalLinkUrl}&amp;title={{file_name}}`;
+        window.location.href = piUrl;
+    }
+
+    function openTgBot() {
+        const createLinkUrl = "https://telegram.dog/";
+        window.open(createLinkUrl, "_blank");
+    }
+
+    function openModalTG() {
+        const modal = document.getElementById("myModal");
+        modal.style.display = "block";
+
+        const words = [
+            "Received File request...✅",
+            "Processing your request...⌛",
+            "Generating your link...🔗",
+            "Sending link to you...🚀",
+            "Redirecting To Telegram...😉"
+        ];
+
+        let index = 0;
+        const timerElement = document.getElementById("timer");
+        timerElement.innerText = words[index];
+
+        const timer = setInterval(() => {
+            index++;
+            if (index < words.length) {
+                timerElement.innerText = words[index];
+            } else {
+                clearInterval(timer);
+                TGre();
+                modal.style.display = "none";
+            }
+        }, 1000);
+    }
+
+    function TGre() {
+        const tglink = "";
+        window.location.href = tglink;
+    }
+
+    function openModal() {
+        const modal = document.getElementById("myModal");
+        modal.style.display = "block";
+
+        const words = [
+            "Received Download request...✅",
+            "Processing your request...⌛",
+            "Generating your link...🔗",
+            "Sending link to you...🚀",
+            "Download has started...😉"
+        ];
+
+        let index = 0;
+        const timerElement = document.getElementById("timer");
+        timerElement.innerText = words[index];
+
+        const timer = setInterval(() => {
+            index++;
+            if (index < words.length) {
+                timerElement.innerText = words[index];
+            } else {
+                clearInterval(timer);
+                download();
+                modal.style.display = "none";
+            }
+        }, 1000);
+    }
+
+    function download() {
+        const finalLinkUrl = finalUrl;
+        window.location.href = finalLinkUrl;
+    }
+</script>
+<script>
+    document.addEventListener('contextmenu', function (e) {
+        e.preventDefault();
+    });
+
+    document.addEventListener('keydown', function (e) {
+        if (
+            e.key === 'F12' ||
+            (e.ctrlKey && e.shiftKey && e.key === 'I') ||
+            (e.ctrlKey && e.key === 'u') ||
+            e.ctrlKey ||
+            e.shiftKey ||
+            e.altKey
+        ) {
+            e.preventDefault();
+        }
+    });
+</script>
+       <!-- <div>
+          <center>
+
+YOUR ADS 
+
+          </center>  --> 
+<footer>
+        <p style="font-size: 15px; color:#7b89a3;padding-top: 30px ;margin:0px 10px; border-top: 1px solid #c2cee3;">
+      This website only provide service that help you convert your Telegram File to Online Streaming.
+      You can report the file/video that contains a problem like copyright, 18+, violence, et. Report <a href="https://telegram.dog" style="color: darkorange"><b>Here</b></a>
+      <p style="text-align:center">&copy; Copyright  </p>
+      <!--
+      YOUR ADS 
+      -->
+</footer>    
+</body>
+</html>
