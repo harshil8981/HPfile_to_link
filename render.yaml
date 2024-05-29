@@ -1,0 +1,33 @@
+services:
+  - type: web
+    plan: free
+    name: HPfile_to_link
+    env: python
+    buildCommand: pip install -r requirements.txt
+    startCommand: python3 -m Adarsh
+    repo: https://github.com/harshil8981/HPfile_to_link.git
+    branch: main
+    autoDeploy: false
+    envVars:
+      - key: BOT_TOKEN
+        sync: false
+      - key: API_ID
+        sync: false
+      - key: API_HASH
+        sync: false
+      - key: BIN_CHANNEL
+        sync: false
+      - key: PORT
+        sync: false
+      - key: FQDN
+        sync: false
+      - key: OWNER_ID
+        sync: false
+      - key: DATABASE_URL
+        sync: false
+      - key: OWNER_USERNAME
+        sync: false
+      - key: HAS_SSL
+        sync: false
+      - key: UPDATES_CHANNEL
+        sync: false
