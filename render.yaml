@@ -31,3 +31,13 @@ services:
         sync: false
       - key: UPDATES_CHANNEL
         sync: false
+      - key: ENV
+        sync: false
+      - key: MULTI_CLIENT
+        sync: false
+      - key: NO_PORT
+        sync: false
+      - key: PING_INTERVAL
+        sync: false
+      - key: SLEEP_THRESHOLD
+        sync: false
